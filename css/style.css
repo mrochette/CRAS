@@ -1,12 +1,12 @@
 html,
 body {
     height: 100%;
-/*    overflow: hidden;     */
+    overflow: hidden;
     width: 100%;
 }
 
 body {
-    background: -webkit-linear-gradient(top,  #87a1b2 0%,#25527c 100%); /* Chrome10+,Safari5.1+ */
+    background: #ccc;
     border: 0;
     font-family: helvetica, arial, sans-serif;
     margin: 0;
@@ -22,6 +22,61 @@ body,
 #languages > a {
     color: #5d6267;
 }
+
+
+/* =========================================================================== */
+/* Desktop Development                                                         */
+/* =========================================================================== */
+#tempIpad {
+    background: -webkit-linear-gradient(top,  #87a1b2 0%,#25527c 100%); /* Chrome10+,Safari5.1+ */
+    border: 90px solid #222;
+    border-radius: 45px;
+    box-shadow: 1px 11px 31px 1px #111;
+    height: 1024px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 768px;
+}
+
+#tempIpad-camera,
+#tempIpad-homeButton {
+    border: 1px solid #444;
+}
+
+#tempIpad-camera {
+    background: #000;
+    border-radius: 15px;
+    height: 20px;
+    left: 50%;
+    margin-left: -11px;
+    position: absolute;
+    top: 40px;
+    width: 20px;
+    z-index: 1;
+}
+
+#tempIpad-homeButton {
+    background: #000;
+    border-radius: 35px;
+    height: 40px;
+    left: 50%;
+    margin-left: -21px;
+    position: absolute;
+    top: 1138px;
+    width: 40px;
+    z-index: 1;
+}
+
+    #tempIpad-homeButton #box {
+        border: 1px solid #666;
+        border-radius: 5px;
+        height: 20px;
+        left: 9px;
+        position: absolute;
+        top: 9px;
+        width: 20px;
+    }
 
 /* =========================================================================== */
 /* Forms                                                                       */
@@ -63,16 +118,6 @@ input + input {
 
 a {
     text-decoration: none;
-}
-
-/* desktop development */
-#tempIpad {
-    border: 40px solid #000;
-    border-radius: 45px;
-    height: 1024px;
-    margin: 0 auto;
-    position: relative;
-    width: 768px;
 }
 
 #colLeft,
@@ -132,17 +177,21 @@ a {
 #colRight > .inner {
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 60px;
 }
 
 #colRight p {
-    line-height: 40px;
+    line-height: 30px;
 }
 
 #topBlock {
-    background: transparent url(../images/bg_banner.jpg) 0 0 no-repeat;
+    background: #fff url(../images/bg_banner.jpg) 0 0 no-repeat;
+    box-shadow: 0px 9px 17px -3px #fff;
     padding-top: 36px;
-    margin-bottom: 20px;
+    position: absolute;
+    top: 10px;
     width: 100%;
+    z-index: 1;
 }
 
 .screen {    
@@ -151,8 +200,7 @@ a {
     width: 100%;
 }
 
-.screen.js-active {
-    max-height: 640px;
+body.scrollable .screen {
     overflow-y: auto;
 }
 
@@ -193,6 +241,14 @@ a.nextScreen:active {
 
 #exercise {
     font-size: 14px;
+    height: 640px;
+    overflow-y: auto;
+    width: 614px;
+    -webkit-transition: 0.5s height;
+}
+
+.sendButton #exercise {
+    height: 870px;
 }
 
 .question-set {
@@ -200,7 +256,7 @@ a.nextScreen:active {
     float: left;    
     margin-bottom: 20px;
     overflow: hidden;
-    width: 100%;    
+    width: 580px;    
     z-index: 400;
 }
 
@@ -229,6 +285,10 @@ a.nextScreen:active {
         margin-right: 20px;
         float: right;
     }
+    
+        .answer .userAnswer {
+            padding-right: 40px;
+        }
 
     .question-set.js-active .question {    
         background: #888;
@@ -238,10 +298,10 @@ a.nextScreen:active {
             border-right: 20px solid #888;
         }
 
-    .question-set.visible.answered .answer {
+    .question-set.visible.js-answered .answer {
         background-image: url(../images/icon_edit.png);
         background-repeat: no-repeat;
-        background-position: 96% 10%;
+        background-position: 96% 10px;
         background-size: 20px auto;    
     }
 
@@ -326,14 +386,60 @@ a.nextScreen:active {
         width: 127px;
     }
     
+    #answerBox #answerBox-options-container a.answerBox-option table {
+        width: 100%;
+    }
+    
     #answerBox #answerBox-options-container a.answerBox-option {
         background: -webkit-linear-gradient(top,  #ebebee 0%,#cbcad3 100%); /* Chrome10+,Safari5.1+ */
         border: 1px solid #4e4d53;
         box-shadow: none;
         color: #000;
         float: left;
+        font-size: 11px;
         margin: 15px 0 0 20px;
         text-shadow: none;
+        -webkit-transition: 5s background;
+    }
+    
+    /* question#1 */
+    body.question1 #answerBox #answerBox-options-container a.answerBox-option {
+        width: 730px;
+    }
+    
+    body.question1 #answerBox #answerBox-options-container a.answerBox-option td {
+        height: 100px;
+        font-size: 20px;
+    }
+    
+    /* question#2 */
+    body.question2 #answerBox #answerBox-options-container a.answerBox-option td {
+        font-size: 10px;
+    }
+    
+    /* question#3 */
+    body.question3 #answerBox #answerBox-options-container a.answerBox-option {
+        width: 230px;
+    }
+    
+    body.question3 #answerBox #answerBox-options-container a.answerBox-option td {
+        height: 63px;
+        font-size: 13px;
+    }
+    
+    /* question#4 */
+    /* question#5 */
+    body.question4 #answerBox #answerBox-options-container a.answerBox-option,
+    body.question5 #answerBox #answerBox-options-container a.answerBox-option,
+    body.question6 #answerBox #answerBox-options-container a.answerBox-option {
+        width: 353px;
+    }
+    
+    body.question4 #answerBox #answerBox-options-container a.answerBox-option td,
+    body.question5 #answerBox #answerBox-options-container a.answerBox-option td,
+    body.question6 #answerBox #answerBox-options-container a.answerBox-option td {
+        font-size: 20px;
+        height: 60px;
     }
     
     #answerBox #answerBox-options-container a.answerBox-option.js-active {
@@ -347,34 +453,15 @@ a.nextScreen:active {
         }
 
 /* =========================================================================== */
-/* Send page                                                                   */
-/* =========================================================================== */
-
-#loading {
-    background: url(../images/loading.gif);
-    height: 64px;
-    margin: 40px auto;
-    width: 64px;
-}
-
-#surveySubmitted.submitted #loading {
-    display: none;
-}
-
-#surveySubmitted p {
-    display: none;
-}
-
-#surveySubmitted.submitted p {
-    display: block;
-}
-
-/* =========================================================================== */
 /* iPad Specific                                                               */
 /* =========================================================================== */
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px)  {
+    body {
+        background: -webkit-linear-gradient(top,  #87a1b2 0%,#25527c 100%); /* Chrome10+,Safari5.1+ */
+    }
+
     #tempIpad {
         border: 0;
         border-radius: 0;
@@ -383,4 +470,46 @@ and (max-device-width : 1024px)  {
         position: relative;
         width: 100%;
     }
+
+    #tempIpad-camera,
+    #tempIpad-homeButton {
+        display: none;
+    }
+    
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    html,
+    body {
+        overflow: auto;
+    }    
+    
+    body {
+        background: -webkit-linear-gradient(top,  #87a1b2 0%,#25527c 100%); /* Chrome10+,Safari5.1+ */
+    }
+
+    #tempIpad {
+        border: 0;
+        border-radius: 0;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+        width: 100%;
+    }
+
+    #tempIpad-camera,
+    #tempIpad-homeButton {
+        display: none;
+    }
+    
+    #colRight {
+        width: 80%;
+    }
+    
+    #colLeft {
+        width: 20%;
+    }
+    
 }

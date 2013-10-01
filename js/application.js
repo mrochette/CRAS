@@ -1,24 +1,36 @@
 var name = '',
     dob = '',
     email = '',
-    MRN = 0;
+    MRN = 0,
+    touchstart = 0,
+    touchend = 0;
 
 // on document ready
 $(document).ready(function(){    
+    listenTouch();
     setupQuestions();
     animateScreens();
-    listenNextScreen();
-    listenNextQuestion();
-    listenClickQuestion();
-    listenAnswerBox();
-    
 });
+
+function listenTouch() {
+
+    $(document).bind('mousedown touchstart', function(){
+        touchend = 0;
+        touchstart = 0;
+        touchstart = new Date().getTime();
+    });
+
+    $(document).bind('mouseup touchend', function(){
+        elapsed = new Date().getTime() - touchstart;
+        touchend(elapsed);        
+    }); 
+}
 
 function setupQuestions() {
     var exercise = $('#exercise');
     var questions = '';
 
-    $.get('./js/questions.xml',function(data){
+    $.get('./data/questions.xml',function(data){
         $(data).find('question').each(function(){
             var index = $(this).index() + 1;
             var label = $(this).find('label').text();
@@ -41,12 +53,17 @@ function setupQuestions() {
 
         });
         questions += '<div id="sendButton" class="question-set"><a class="nextScreen">Submit your survey!</a></div>';
-        exercise.append(questions);        
+        exercise.append(questions);
+
+        listenNextScreen();
+        listenNextQuestion();
+        listenClickQuestion();
+        listenAnswerBox();
     });
 }
 
 function listenNextScreen() {
-    $('.nextScreen').click(function(e){
+    $(document).on('touchstart click', '.nextScreen', function(e){
         var activeScreen = $('.screen.js-active');
         e.preventDefault();
 
@@ -76,14 +93,6 @@ function animateScreens(target) {
         activeScreen.removeClass('js-active').slideUp();
     }
     nextScreen.addClass('js-active').slideDown();
-
-    // if this moving to the surveySubmitted page
-    // add the class submitted after a few seconds to the screen
-    if($(this).parent('#sendButton')) {
-        setTimeout(function(){
-            $('#surveySubmitted').addClass('submitted');
-        }, 10000);
-    }
 }
 
 function updateUserInformation() {
@@ -101,12 +110,15 @@ function updateUserInformation() {
     $('#profile-MRN').text(MRN);
     
     $('#colRight').addClass('js-userProfile');
-    scrollQuestion('question1');
+    scrollQuestion('question1', 'question1');
 }
 
 function listenClickQuestion() {
-    $(document).on('click', '.question-set', function(){
+    $(document).on('touchstart click', '.question-set', function(){
         var parent = $(this);
+        var currentElement = $('.question-set.js-active');
+        var cid = currentElement.attr('id');
+
         if(! parent.hasClass('js-active')) {
             var id = parent.attr('id');
             // if user clicked on userProfile
@@ -119,7 +131,7 @@ function listenClickQuestion() {
             else {
                 $('.question-set.js-active').removeClass('js-active');
                 parent.addClass('js-active');
-                scrollQuestion(id);
+                scrollQuestion(cid, id);
             }
         }
     });
@@ -127,9 +139,10 @@ function listenClickQuestion() {
 
 function listenNextQuestion() {
     $('.updateQuestion').click(function(e){
-        
+
         e.preventDefault();
         var currentElement = $('.question-set.js-active');
+        var cid = currentElement.attr('id');
         var direction = $(this).text();
         var nextElement = (direction === 'Next')?  currentElement.next() : currentElement.prev();
         var lastVisibleElement = $('.question.visible:last');
@@ -145,12 +158,12 @@ function listenNextQuestion() {
         else {
             // remove js-active from the current element
             currentElement.removeClass('js-active');
-    
+
             var id= nextElement.attr('id');
 
             $('#'+id).addClass('visible js-active');
             setTimeout(function(){
-                scrollQuestion(id);
+                scrollQuestion(cid, id);
             }, 150);
         }
     });
@@ -158,27 +171,6 @@ function listenNextQuestion() {
 
 function hideAnswerBox(currentElement){
     var answerBox = $('#answerBox');
-    var userAnswer = $(currentElement).find('.userAnswer td');
-    var chosenOptions = $('.answerBox-option.js-active');
-    var userAnswerText = '...';
-
-    if(chosenOptions.length > 0) {
-        var counter = 0;
-
-        chosenOptions.each(function(){
-            var text = $(this).text();
-    
-            if(counter === 0) {
-                userAnswer = text;
-            }
-            else {
-                userAnswer += ', ' + text;
-            }
-            counter++;
-        });
-        // update userAnswer with chosen words
-        $(currentElement).find('.userAnswer').text(userAnswer);
-    }
 
     $('#answerBox-options-container').html('').fadeOut();
     answerBox.animate({
@@ -189,10 +181,14 @@ function hideAnswerBox(currentElement){
 function showAnswerBox(newCurrentElement) {
     if( $('#sendButton.js-active').length < 1) {
         newCurrentElement = $(newCurrentElement);
+        var newId = newCurrentElement.attr('id');
         var options = newCurrentElement.find('.answer-options-container').html();
         var answerBox = $('#answerBox');
         var answerBoxOptions = $('#answerBox-options-container');
     
+        $('body').attr('class', '');
+        $('body').addClass(newId);
+
         // populate the question's answer options in answerBoxOptions
         answerBox.animate({
             'bottom' : 0
@@ -202,14 +198,17 @@ function showAnswerBox(newCurrentElement) {
     }
 }
 
-function scrollQuestion(id) {
+function scrollQuestion(cid, id) {
     var exercise = $('#exercise');
     var offsetTop = $('#'+id).offset().top;
 
-    hideAnswerBox('#' + id);
+    hideAnswerBox('#' + cid);
 
     if(id !== 'sendButton') {
         showAnswerBox('#' + id);
+    }
+    else {
+        $('body').attr('class', 'sendButton');
     }
 
     exercise.animate({
@@ -218,7 +217,20 @@ function scrollQuestion(id) {
 }
 
 function listenAnswerBox() {
-    $(document).on('click', '.answerBox-option', function(){
+    $(document).on('touchstart click', '.answerBox-option', function(){
+        var answerBox = $('#answerBox-options-container');
+        var activeQuestionSet = $(document).find('.question-set.js-active');
+        var activeQuestionAnswer = activeQuestionSet.find('.userAnswer');
+        var userAnswerText = $(this).text();
+
+        // toggle js-active class for the current active class and the clicked answer
+        answerBox.find('.js-active').toggleClass('js-active');
         $(this).toggleClass('js-active');
+
+        // update answer text
+        activeQuestionAnswer.text(userAnswerText);
+        
+       // mark question as js-answered
+        activeQuestionSet.addClass('js-answered');
     });
 }
