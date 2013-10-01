@@ -1,0 +1,103 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Cancer Risk Assessment Survey - Hughes Risk Apps</title>
+
+<!-- ipad viewport settings -->
+<meta name="viewport" content="initial-scale=1, user-scalable=no">
+
+<!-- css -->
+<link href="css/style.css" rel="stylesheet" />
+
+<!-- libraries -->
+<script src="lib/jquery-2.0.3.min.js"  type="text/javascript"></script>
+
+<!-- js -->
+<script src="js/application.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="tempIpad">
+        <div id="colRight">
+            <div class="inner">
+                <div id="topBlock"></div>
+                <div id="screens">
+                    <div id="home" class="screen">
+                        <p>Personal and family history is vital in predicting your estimated lifetime risk of developing breast cancer. All information is strictly confidential and is never shared with any third party.</p>
+                        <a href="#" class="nextScreen" href="#">Get Started</a>
+                    </div><!-- / #home -->
+                    <div id="userInformation" class="screen">
+                        <div class="greyBox">
+                            <form class="inner">
+                                <fieldset id="user-name" class="dual">
+                                    <label>Name</label><input id="name-first" type="text" placeholder="First" /><input id="name-last" type="text" placeholder="Last" />
+                                </fieldset>
+                                <fieldset id="user-birthday">
+                                    <label>Date of Birth</label><input id="dob" type="date" />
+                                </fieldset>
+                                <fieldset id="user-email">
+                                    <label>Email Address</label><input id="email" type="text" />
+                                </fieldset>
+                                <fieldset id="user-medicalRecordNumber">
+                                    <label>Medical Record#</label><input id="medicalRecordNumber" type="text" />
+                                </fieldset>
+                            </form>
+                        </div>
+                        <a href="#" class="nextScreen" href="#">Next</a>
+                    </div><!-- / #userInformation -->
+                    <div id="exercise" class="screen">
+                        <div id="userProfile" class="question-set visible answered">
+                            <div class="answer">
+                                <span class="userLabel">Name</span><span id="profile-name" class="userInput"></span><br />
+                                <span class="userLabel">Date of Birth</span><span id="profile-dob" class="userInput"></span><br />
+                                <span class="userLabel">Email Address</span><span id="profile-email" class="userInput"></span><br />
+                                <span class="userLabel">Medical Record #</span><span id="profile-MRN" class="userInput"></span>
+                            </div>
+                        </div>
+                    </div><!-- / #exercise -->
+                    <div id="surveySubmitted" class="screen">
+                        <div id="loading"></div>
+                        <p>Thank you for submitting your answers.  An email will be sent shortly to give you the next steps.</p>
+                    </div><!-- / #surveySubmitted -->
+                </div>
+            </div><!-- / .inner -->
+        </div>
+        <div id="colLeft">
+            <div id="languages" class="inner">
+                <a href="#" id="english" class="lang-choice">English</a>
+                <a href="#" id="espanol" class="lang-choice">Espa&ntilde;ol</a>
+                <a href="#" id="portugues" class="lang-choice">Portugu&ecirc;s</a>
+            </div>
+        </div><!-- / #colLeft -->
+        <div id="answerBox">
+            <div id="actionsBar">
+                <a href="#" class="updateQuestion next">Next</a><a href="#" class="updateQuestion previous">Previous</a>
+            </div><!-- / #actionsBar -->
+            <div id="answerBox-options-container">
+                <!-- insert the options here -->
+            </div><!-- / #answerBox-options-container -->
+        </div><!-- / #answerBox -->
+    </div><!-- / #tempIpad -->
+</body>
+</html>
+
+<!--
+QUESTIONS TEMPLATE
+
+==============================
+
+<div id="question1" class="question-set">
+    <div class="question">
+        What is your Job?
+    </div>
+    <div class="answer">
+        ...
+    </div>
+    <div class="greyBox">
+        <div class="inner">
+            
+        </div>
+    </div>
+</div>
+
+==============================
+-->

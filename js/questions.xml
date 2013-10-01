@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<questions>
+	<question id="1">
+		<label>Please indicate your gender</label>
+		<choices>
+			<choice>Female</choice>
+			<choice>Male</choice>
+		</choices>
+	</question>
+	<question id="2">
+		<label>What is your job?</label>
+		<choices>
+			<choice>Architecture/Engineering</choice>
+			<choice>Maintenance</choice>
+			<choice>Agriculture</choice>
+			<choice>Military</choice>
+			<choice>Arts</choice>
+			<choice>Personal Care / Service</choice>
+			<choice>Business Operations</choice>
+			<choice>Science</choice>
+			<choice>Construction</choice>
+			<choice>Protective Services</choice>
+			<choice>Education</choice>
+			<choice>Sales</choice>
+			<choice>Food Service</choice>
+			<choice>Stay-at-home parent</choice>
+			<choice>Healthcare</choice>
+			<choice>Transportation</choice>
+			<choice>Information Technology</choice>
+			<choice>Unemployed</choice>
+			<choice>Legal</choice>
+			<choice>Other</choice>
+		</choices>
+	</question>
+	<question id="3">
+		<label>Are you in a relationship?</label>
+		<choices>
+			<choice>Maried</choice>
+			<choice>Not married but in a steady relationship with a female partner</choice>
+			<choice>Not married but in a steady relationship with a male partner</choice>
+			<choice>Widowed</choice>
+			<choice>Divorced</choice>
+			<choice>Separated</choice>
+			<choice>Single, never been married</choice>
+			<choice>Prefer not to answer</choice>
+			<choice>Other</choice>
+		</choices>
+	</question>
+	<question id="4">
+		<label>What is the last grade you completed?</label>
+		<choices>
+			<choice>Junior high</choice>
+			<choice>High school	</choice>
+			<choice>Some college</choice>
+			<choice>College degree</choice>
+			<choice>Graduate degree</choice>
+			<choice>Other</choice>
+		</choices>
+	</question>
+	<question id="5">
+		<label>How many alcoholic beverages do you consume weekly?</label>
+		<choices>
+			<choice>None</choice>
+			<choice>Less than 1 drink a week</choice>
+			<choice>1 - 4 drinks per week</choice>
+			<choice>5 - 9 drinks per week</choice>
+			<choice>10 - 19 drinks per week</choice>
+			<choice>More than 19 drinks per week</choice>
+		</choices>
+	</question>
+	<question id="6">
+		<label>How much do you smoke?</label>
+		<choices>
+			<choice>&lt; 1 pack per day</choice>
+			<choice>1 pack per day</choice>
+			<choice>2 packs per day</choice>
+			<choice>3 packs per day</choice>
+			<choice>> 3 packs per day</choice>
+			<choice>More than 19 drinks per week</choice>
+		</choices>
+	</question>
+</questions>
