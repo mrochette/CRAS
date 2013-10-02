@@ -169,6 +169,19 @@ function listenNextQuestion() {
     });
 }
 
+function navigateNextQuestion(nextElement) {
+    var currentElement = $('.question-set.js-active');
+    var id= nextElement.attr('id');
+
+    // remove js-active from the current element
+    currentElement.removeClass('js-active');
+    
+    $('#'+id).addClass('visible js-active');
+    setTimeout(function(){
+        scrollQuestion(cid, id);
+    }, 150);
+}
+
 function hideAnswerBox(currentElement){
     var answerBox = $('#answerBox');
 
@@ -222,6 +235,7 @@ function listenAnswerBox() {
         var activeQuestionSet = $(document).find('.question-set.js-active');
         var activeQuestionAnswer = activeQuestionSet.find('.userAnswer');
         var userAnswerText = $(this).text();
+        var nextElement = activeQuestionSet.next();
 
         // toggle js-active class for the current active class and the clicked answer
         answerBox.find('.js-active').toggleClass('js-active');
@@ -232,5 +246,10 @@ function listenAnswerBox() {
         
        // mark question as js-answered
         activeQuestionSet.addClass('js-answered');
+        
+
+        hideAnswerBox(activeQuestionSet);
+        navigateNextQuestion(nextElement);
+        showAnswerBox(nextElement);
     });
 }
